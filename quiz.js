@@ -20,6 +20,16 @@ const quiz = [
         correct: 2,
         title: 3,
     },
+    {
+        question: "コードを書くことに疲れたときはどうするのがよいか．",
+        answers: ["温泉に浸かる", "ビールを飲む", "更にコードを書く"],
+        correct: 2,
+        title: 4,
+    },
+
+
+
+
 ];
 
 
@@ -61,5 +71,10 @@ $("button").on("click", function (e) {
     //n問目更新
     $("#title").text(quiz[result.length].title);
 
+    //最終問が終わったら「終了」アラートを表示
+    console.log(quiz[result.length].title)
+    if ((quiz[result.length].title) === 4) {
+        alert("終わり！")
+    }
 
 });
