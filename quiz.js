@@ -15,16 +15,34 @@ const quiz = [
         title: 2,
     },
     {
-        question: "コードを書くことに疲れたときはどうするのがよいか．",
+        question: "コードを書くことに疲れたときはどうするのが良いか。",
         answers: ["温泉に浸かる", "ビールを飲む", "更にコードを書く"],
         correct: 2,
         title: 3,
     },
     {
-        question: "コードを書くことに疲れたときはどうするのがよいか．",
-        answers: ["温泉に浸かる", "ビールを飲む", "更にコードを書く"],
+        question: "自分よりプログラミングが上手い人を見つけた際はどうするのが良いか。",
+        answers: ["PCにウイルスを仕掛ける", "キーボードに水をたらす", "じっくり研究し良いところを真似る"],
         correct: 2,
         title: 4,
+    },
+    {
+        question: "問題５の内容",
+        answers: ["回答１", "回答２", "回答３"],
+        correct: 2,
+        title: 5,
+    },
+    {
+        question: "問題６の内容",
+        answers: ["回答１", "回答２", "回答３"],
+        correct: 2,
+        title: 6,
+    },
+    {
+        question: "問題６の内容",
+        answers: ["回答１", "回答２", "回答３"],
+        correct: 2,
+        title: 7,
     },
 
 
@@ -50,17 +68,29 @@ $("#answer00").val(0);
 $("#answer01").val(1);
 $("#answer02").val(2);
 
+//正解数集計用の定義
+var correctnum = 1;
+
 
 $("button").on("click", function (e) {
     if (Number(e.target.value) === quiz[result.length].correct) {
         $("#result").text("正解！！！");
         // 結果を配列に追加
         result.push("ok");
+        //正解数を積み上げ
+        var correctnum_total = correctnum++
+
+
+
     } else {
         $("#result").text("不正解．．．");
         // 結果を配列に追加
         result.push("ng");
+        var correctnum_total = correctnum + 0
+
     }
+
+
 
     // 問題文と選択肢を更新
     $("#question").text(quiz[result.length].question);
@@ -69,12 +99,30 @@ $("button").on("click", function (e) {
     $("#answer02").text(quiz[result.length].answers[2]);
 
     //n問目更新
-    $("#title").text(quiz[result.length].title);
+    $("#title").text("第 " + quiz[result.length].title + " 問");
 
-    //最終問が終わったら「終了」アラートを表示
-    console.log(quiz[result.length].title)
-    if ((quiz[result.length].title) === 4) {
+    console.log(correctnum_total)
+
+    //最終問が終わったときの挙動
+    if ((quiz[result.length].title) === 7) {
+        //「終了」アラートを表示
         alert("終わり！")
+
+        //回答数表示    
+        $("#correct_total").text("あなたの正解数は" + correctnum_total + "でした！")
+
+        //正解数が3か6の時ナベアツ表示
+        if (correctnum_total === 3 || correctnum_total === 6) {
+            $("#img").attr("src", "img/nabeatsu.jpg");
+        }
+
+        //正解率を表示  
+        $("#correct_per").text("あなたの正解率は" + new Intl.NumberFormat('ja', { style: 'percent' }).format(correctnum_total / 6) + "でした！")
+
+
+
     }
+
+
 
 });
