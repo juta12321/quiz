@@ -1,35 +1,55 @@
 // quiz01.html
 
 // ↓問題文（設定済み）
-const quiz = {
-    question: "プログラミングにおいて次の3つの中で最も重要なものはなにか．",
-    answers: ["知性", "コード量", "体格"],
-    correct: 1,
-};
+const quiz = [
+    {
+        question: "プログラミングにおいて次の3つの中で最も重要なもの？？",
+        answers: ["知性", "コード量", "体格"],
+        correct: 1,
+    },
+    {
+        question: "課題をつくるときに大事なことは？？",
+        answers: ["斬新なアイデア", "コミットする時間", "洗練されたコード"],
+        correct: 1,
+    },
+    {
+        question: "コードを書くことに疲れたときはどうするのがよいか．",
+        answers: ["温泉に浸かる", "ビールを飲む", "更にコードを書く"],
+        correct: 2,
+    },
+];
 
-// 1. 問題文の表示
-$("#question").text(quiz.question);
+// 1. 結果記録用の配列を用意
+const result = [];
 
-// 2. 選択肢の表示
-$("#answer00").text(quiz.answers[0]);
-$("#answer01").text(quiz.answers[1]);
-$("#answer02").text(quiz.answers[2]);
+// 2. 問題文の表示
+$("#question").text(quiz[result.length].question);
 
-// 3. `value`の設定
+// 3. 選択肢の表示
+$("#question").text(quiz[result.length].question);
+$("#answer00").text(quiz[result.length].answers[0]);
+$("#answer01").text(quiz[result.length].answers[1]);
+$("#answer02").text(quiz[result.length].answers[2]);
+
+// 4. `value`の設定
 $("#answer00").val(0);
 $("#answer01").val(1);
 $("#answer02").val(2);
 
 
 $("button").on("click", function (e) {
-    // 1, 2 `value`を受け取り，条件分岐
-    if (Number(e.target.value) === quiz.correct) {
-        // 正解の表示
+    if (Number(e.target.value) === quiz[result.length].correct) {
         $("#result").text("正解！！！");
-        alert("正解")
+        // 結果を配列に追加
+        result.push("ok");
     } else {
-        // 不正解の表示
         $("#result").text("不正解．．．");
-        alert("不正解．．．")
+        // 結果を配列に追加
+        result.push("ng");
     }
+    // 問題文と選択肢を更新
+    $("#question").text(quiz[result.length].question);
+    $("#answer00").text(quiz[result.length].answers[0]);
+    $("#answer01").text(quiz[result.length].answers[1]);
+    $("#answer02").text(quiz[result.length].answers[2]);
 });
